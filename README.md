@@ -2,4 +2,4 @@
 
 Good models require multiple regressions, in order to address the higher complexity of problems 
 
-<img src="https://render.githubusercontent.com/render/math?math= \hat = b_0 + b_1">
+<img src="https://render.githubusercontent.com/render/math?math= \hat{y} = b_0 + b_1">
