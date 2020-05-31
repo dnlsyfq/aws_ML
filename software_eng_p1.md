@@ -59,4 +59,24 @@ for book in recent_books:
  'Duration: {} seconds'.format(time.time()-start())
  ```
  
- 
+## Documentation
+Additional text or illustrations that comes with or is embedded in software code
+
+* Clarify complex parts of code
+* Navigate code easily
+* Describe use and purpose of components
+
+**Types of Documentaions**
+* Line level
+    * In-line comments
+* Function or module level
+    * Docstring explain function or module 
+* Project level
+    * for getting others to understand why and how your code is relevant to them, whether they are potentials users of your project or developers who may contribute to your code. 
+    
+    * At a minimum, this should explain what it does, list its dependencies, and provide sufficiently detailed instructions on how to use it. You want to make it as simple as possible for others to understand the purpose of your project, and quickly get something working.
+
+
+
+
+
