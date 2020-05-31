@@ -83,6 +83,9 @@ Additional text or illustrations that comes with or is embedded in software code
 
 
 ## Git 
+[Git Branching Strategy](https://nvie.com/posts/a-successful-git-branching-model/)
+
+[Git Merge Conflicts](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-merge-conflicts)
 
 **Scenario 1**
 
@@ -121,3 +124,56 @@ git checkout demographic
 **Scenario 2**
 
 <img src="./img/sce2.png"/>
+
+Step 1: You check your commit history, seeing messages of the changes you made and how well it performed.
+```
+git log
+```
+
+
+Step 2: The model at this commit seemed to score the highest, so you decide to take a look.
+```
+git checkout bc90f2cbc9dc4e802b46e7a153aa106dc9a88560
+```
+Step 3: Now, you’re pretty confident merging this back into the development branch, and pushing the updated recommendation engine.
+```
+git checkout develop
+git merge --no-ff friend_groups
+git push origin develop
+```
+
+
+**Scenario 3**
+
+<img src="./img/sce3.png"/>
+
+<img src="./img/sce4.png"/>
+
+Step 1: Andrew commits his changes to the documentation branch, switches to the development branch, and pulls down the latest changes from the cloud on this development branch, including the change I merged previously for the friends group feature.
+
+```
+git commit -m "standardized all docstrings in process.py"
+git checkout develop
+git pull
+```
+Step 2: Then, Andrew merges his documentation branch on the develop branch on his local repository, and then pushes his changes up to update the develop branch on the remote repository.
+
+```
+git merge --no-ff documentation
+git push origin develop
+```
+
+Step 3: After the team reviewed both of your work, they merge the updates from the development branch to the master branch. Now they push the changes to the master branch on the remote repository. These changes are now in production.
+
+```
+git merge --no-ff develop
+git push origin master
+```
+
+## Model versioning
+
+each commit was documented with a score for that model. This is one simple way to help you keep track of model versions. Version control in data science can be tricky, because there are many pieces involved that can be hard to track, such as large amounts of data, model versions, seeds, hyperparameters, etc.
+ 
+[Version Control for Production ML](https://algorithmia.com/blog/how-to-version-control-your-production-machine-learning-models)
+
+
