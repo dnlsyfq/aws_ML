@@ -23,11 +23,6 @@ Poor quality and accuracy of analysis + quality of code can result to:
 * Inappropriate features
 * Unexpected data were breaking assumptions that your statistical models are based on 
 
-### Test Drive Development
-> Writing tests before developing code to implement tasks
-
-
-a development process where you write tests for tasks before you even write the code to implement those tasks.
 
 ### Unit Test
  a type of test that covers a “unit” of code, usually a single function, independently from the rest of the program.
@@ -80,6 +75,13 @@ def test_nearest_square_5():
 # working directory
 # Enter pytest into your terminal in the directory of your test file and it will detect these tests for you!
 
-$ pytest
+$ pytest # python3 -m pytest
 
 ```
+
+### Test Drive Development
+> Writing tests before developing code to implement tasks
+
+
+a development process where you write tests for tasks before you even write the code to implement those tasks.
+
