@@ -61,6 +61,8 @@ for book in recent_books:
  
 ## Documentation
 Additional text or illustrations that comes with or is embedded in software code
+[Doc string Ref](https://www.python.org/dev/peps/pep-0257/)
+[Doc string Numpy Guide](https://numpydoc.readthedocs.io/en/latest/format.html)
 
 * Clarify complex parts of code
 * Navigate code easily
@@ -69,14 +71,53 @@ Additional text or illustrations that comes with or is embedded in software code
 **Types of Documentaions**
 * Line level
     * In-line comments
+    * clarifying complex code
+    * readable code is prefer over having comments
 * Function or module level
     * Docstring explain function or module 
+    * add whatever details in docstring
 * Project level
     * for getting others to understand why and how your code is relevant to them, whether they are potentials users of your project or developers who may contribute to your code. 
     
     * At a minimum, this should explain what it does, list its dependencies, and provide sufficiently detailed instructions on how to use it. You want to make it as simple as possible for others to understand the purpose of your project, and quickly get something working.
 
 
+## Git 
+
+**Scenario 1**
+
+<img src="./img/sce1.png"/>
 
 
+STEP 1: You have a local version of this repository on your laptop, and to get the latest stable version, you pull from the develop branch.
+```
+git checkout develop
+git pull
+```
+STEP 2: When you start working on this demographic feature, you create a new branch for this called demographic, and start working on your code in this branch.
+```
+git checkout -b demographic
+git commit -m 'added gender recommendations'
+...
+```
+STEP 3: However, in the middle of your work, you need to work on another feature. So you commit your changes on this demographic branch, and switch back to the develop branch.
+```
+git checkout develop
+```
+STEP 4: From this stable develop branch, you create another branch for a new feature called friend_groups.
+```
+git checkout -b friend_groups
+```
+STEP 5: After you finish your work on the friend_groups branch, you commit your changes, switch back to the development branch, merge it back to the develop branch, and push this to the remote repository’s develop branch.
+```
+git checkout develop
+git merge --no-ff friends_groups
+git push origin develop
+```
+STEP 6: Now, you can switch back to the demographic branch to continue your progress on that feature
+```
+git checkout demographic
+```
+**Scenario 2**
 
+<img src="./img/sce2.png"/>
