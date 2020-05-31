@@ -39,7 +39,7 @@ Restructure code to improve internal structure w/o changing external functionali
  
  **Optimizing Code**
  
- sets faster than lists
+ sets faster than lists [sets over lists](https://stackoverflow.com/questions/8929284/what-makes-sets-faster-than-lists/8929445#8929445)
  ```
 import time
  
