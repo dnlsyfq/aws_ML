@@ -7,3 +7,4 @@ Good models require multiple regressions, in order to address the higher complex
 * yhat = inferred value 
 * b0 = intercept 
 * b1x1 , b2x2 , bkxk = independent variable
+
