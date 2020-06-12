@@ -48,3 +48,37 @@ source environmentname/bin/activate
 pip install numpy
 ```
 
+### PyPi
+Note that pypi.org and test.pypy.org are two different websites. You'll need to register separately at each website. If you only register at pypi.org, you will not be able to upload to the test.pypy.org repository
+
+Also, remember that your package name must be unique. If you use a package name that is already taken, you will get an error when trying to upload the package.
+
+
+**Pypi.org**
+
+1.Test PyPi
+2.PyPi 
+
+* Create Account
+* cd dirpackage
+* Create license.txt
+* Create README.txt
+* Create setup.cfg
+```
+[metadata]
+description-file = README.md
+```
+```
+binomial_package_files
+|-setup.py
+|-dsnd_probability
+|  |-Binomialdistribution.py
+|  |-Gaussiandistribution.py
+|  |-Generaldistribution.py
+|  |-README.md
+|  |-__init__.py
+|  |-license.txt
+|  |-setup.cfg
+```
+
+
