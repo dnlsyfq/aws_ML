@@ -161,7 +161,29 @@ Similarity Index
 
 <img src="../img/sce18.JPG">
 
+* When the graph of the similarity index smoothes out and becomes less spikey, we can be confident that the model is converging
+* musical quality of the model should improve as the number of training epochs increases.
 
 *   x : Time , y : Epoch
-*   the closer the generator comes to the real samples , the index should tends towards 0 
+*   the closer the generator comes to the real samples , the index should tends towards 0 (not to become 0)
 *   convergence occurs when graph smooth out 
+*   model improve over time as ml model trains 
+
+**Challenges in Training GANs**
+
+* Clean datasets are hard to obtain
+* GANs take time to converge during training
+* Complexity in defining subjective metrics for music creation ( in defining what constitutes a good music)
+* Complexity in defining quantitative metrics for music creation ( in defining genre, or good/bad music )
+
+### Training Architecture 
+
+<img src="../img/aws-mle-train-arch.png">
+
+1.  User launch a training job from the AWS DeepComposer console by selecting 
+2.   hyperparameters and data set filtering tags
+3. The backend consists of an API Layer (API gateway and lambda) write request to DynamoDB
+4. Triggers a lambda function that starts the training workflow
+5. It then uses AWS Step Funcitons to launch the training job on Amazon SageMaker
+6. Status is continually monitored and updated to DynamoDB
+7. The console continues to poll the backend for the status of the training job and update the results live so users can see how the model is learning
