@@ -187,3 +187,90 @@ Similarity Index
 5. It then uses AWS Step Funcitons to launch the training job on Amazon SageMaker
 6. Status is continually monitored and updated to DynamoDB
 7. The console continues to poll the backend for the status of the training job and update the results live so users can see how the model is learning
+
+
+### Generative AI 
+
+Generative AI opens the door to an entire world of creative possibilities with practical applications emerging across industries, from turning sketches into images for accelerated product development, to improving computer-aided design of complex objects.
+
+* Use Case
+
+Glidewell Dental is training a generative adversarial network adept at constructing detailed 3D models from images. One network generates images and the second inspects those images. This results in an image that has even more anatomical detail than the original teeth they are replacing.
+    * training gpu powered GANs to create dental crown models
+
+Generative AI enables computers to learn the underlying pattern associated with a provided input (image, music, or text), and then they can use that input to generate new content. Examples of Generative AI techniques include Generative Adversarial Networks (GANs), Variational Autoencoders, and Transformers.
+
+### GAN
+
+GANs, a generative AI technique, pit 2 networks against each other to generate new content. The algorithm consists of two competing networks: a generator and a discriminator.
+
+*   A generator is a convolutional neural network (CNN) that learns to create new data resembling the source data it was trained on.
+
+*   The discriminator is another convolutional neural network (CNN) that is trained to differentiate between real and synthetic data.
+
+The generator and the discriminator are trained in alternating cycles such that the generator learns to produce more and more realistic data while the discriminator iteratively gets better at learning to differentiate real data from the newly created data.
+
+<img src="img/aws-deepcomoserr-gan-schema.png">
+
+* use case
+
+metaphor of an orchestra and conductor. An orchestra doesn’t create amazing music the first time they get together. They have a conductor who both judges their output, and coaches them to improve
+
+<img src="img/gan-representation.png">
+
+* The generator and discriminator are occuring asynchronously
+* The generator is learning to produce more realistic data and the discriminator is learning to differentiate real data from the newly create data 
+
+**Generator**
+The generator network used in AWS DeepComposer is adapted from the U-Net architecture, a popular convolutional neural network that is used extensively in the computer vision domain. The network consists of an “encoder” that maps the single track music data (represented as piano roll images) to a relatively lower dimensional “latent space“ and a ”decoder“ that maps the latent space back to multi-track music data.
+
+<img src="img/u-net.png">
+
+* The generator takes in a batch of single-track piano rolls (melody) as the input and generates a batch of multi-track piano rolls as the output by adding accompaniments to each of the input music tracks.
+* The discriminator then takes these generated music tracks and predicts how far it deviates from the real data present in your training dataset.
+
+**Discriminator**
+The goal of the discriminator is to provide feedback to the generator about how realistic the generated piano rolls are, so that the generator can learn to produce more realistic data. The discriminator provides this feedback by outputting a scalar value that represents how “real” or “fake” a piano roll is.
+
+Since the discriminator tries to classify data as “real” or “fake”, it is not very different from commonly used binary classifiers. We use a simple architecture for the critic, composed of four convolutional layers and a dense layer at the end.
+
+* This feedback from the discriminator is used by the generator to update its weights. As the generator gets better at creating music accompaniments, it begins fooling the discriminator. So, the discriminator needs to be retrained as well.
+* Beginning with the discriminator on the first iteration, we alternate between training these two networks until we reach some stop condition (ex: the algorithm has seen the entire dataset a certain number of times).
+
+<img src="img/discriminator.png">
+
+1. Input
+2. Encoder
+3. Latent Space
+4. Decoder
+5. Output
+
+* Finer control of AWS DeepComposer with hyperparameters
+hyperparameters for finer control of this process. Here are a few details on each to help guide your exploration.
+    * is set before training process
+
+* number of epoch
+When the training loop has passed through the entire training dataset once, we call that one epoch. Training for a higher number of epochs will mean your model will take longer to complete its training task, but it may produce better output if it has not yet converged. You will learn how to determine when a model has completed most of its training in the next section.
+
+* Learning Rate
+
+The learning rate controls how rapidly the weights and biases of each network are updated during training. A higher learning rate might allow the network to explore a wider set of model weights, but might pass over more optimal weights.
+
+* Update ratio
+
+A ratio of the number of times the discriminator is updated per generator training epoch. Updating the discriminator multiple times per generator training epoch is useful because it can improve the discriminators accuracy. Changing this ratio might allow the generator to learn more quickly early-on, but will increase the overall training time.
+
+While we provide sensible defaults for these hyperparameters in the AWS DeepComposer console, you are encouraged to explore other settings to see how each changes your model’s performance and time required to finish training your model.
+
+**Evaluation**
+
+Typically when training any sort of model, it is a standard practice to monitor the value of the loss function throughout the duration of the training. The discriminator loss has been found to correlate well with sample quality. You should expect the discriminator loss to converge to zero and the generator loss to converge to some number which need not be zero. When the loss function plateaus, it is an indicator that the model is no longer learning. At this point, you can stop training the model. You can view these loss function graphs in the AWS DeepComposer console.
+
+* Sample output quality improves with more training
+
+After 400 epochs of training, discriminator loss approaches near zero and the generator converges to a steady-state value. Loss is useful as an evaluation metric since the model will not improve as much or stop improving entirely when the loss plateaus.
+
+sample output at 400 epochs features elements of training dataset 
+
+<img src="img/quality-graph.png">
+
