@@ -1,3 +1,31 @@
+# Supervised
+
+* Teaches model providing dataset with example inputs and outputs
+* tell the model which o/p are correct
+* input -> model -> output/prediction
+
+
+# Unsupervised
+
+* No external teacher or pre-trained data
+* model detects emerging properties in the input dataset
+* model then constructs patterns or clusters
+
+
+
+# Deep Learning
+
+* Time series / predictive analysis
+  * log analysis
+  * risk fraud detection
+  * predictive anaysis sensor data 
+
+* image analysis
+  * image recognition
+
+
+
+
 # Machine Learning : Multiple Linear Regression
 
 Good models require multiple regressions, in order to address the higher complexity of problems 
